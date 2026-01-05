@@ -207,7 +207,7 @@ $ npm run dev
 
 - **Manipulação de Pontos:** Criar, Listar, Visualizar e excluir pontos.
 - **Manipulação de Mapas:** Criar, Listar, Visualizar e excluir mapas.
-- **Mapa Interativo:** Criação e visualização de pontos a um clique de distância.
+- **Mapa Interativo:** Criação (botão direito) e visualização de pontos a um clique de distância.
 - **API Documentada:** Swagger acessível em `/docs`  
 
 ## 📂 Estrutura do Projeto
