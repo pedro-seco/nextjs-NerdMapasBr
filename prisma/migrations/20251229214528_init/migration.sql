@@ -1,0 +1,15 @@
+-- CreateTable
+CREATE TABLE "Mapas" (
+    "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    "name" TEXT
+);
+
+-- CreateTable
+CREATE TABLE "POIs" (
+    "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    "titulo" TEXT,
+    "lat" INTEGER NOT NULL,
+    "long" INTEGER NOT NULL,
+    "mapaId" INTEGER NOT NULL,
+    CONSTRAINT "POIs_mapaId_fkey" FOREIGN KEY ("mapaId") REFERENCES "Mapas" ("id") ON DELETE RESTRICT ON UPDATE CASCADE
+);

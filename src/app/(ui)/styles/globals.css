@@ -1,0 +1,98 @@
+@import "tailwindcss";
+
+:root {
+  --background: #232121;
+  --foreground: #FFFFFF;
+  --surface: #d9d9d9;
+  --primary: #a6a6a6;
+  --text-inverse:#000000;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-surface: var(--surface);
+  --color-primary: var(--primary);
+  --color-text-inverse: var(--text-inverse);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+body {
+  background-color: var(--color-background);
+  color: var(--foreground);
+  font-family: var(--font-geist-sans);
+}
+
+@layer components {
+  .maplibregl-popup-content {
+    @apply bg-background! p-0! rounded-lg! shadow-xl!;
+  }
+
+  .maplibregl-popup-anchor-top .maplibregl-popup-tip {
+    @apply border-b-background!;
+  }
+
+  .maplibregl-popup-anchor-bottom .maplibregl-popup-tip {
+    @apply border-t-background!; 
+  }
+
+  .btn-default {
+    display: inline-block;
+    border: 1px solid var(--foreground);
+    padding: 0.25rem 1.5rem;
+    background-color: transparent;
+    color: var(--foreground);
+    cursor: pointer;
+    transition: all 0.2s ease; 
+  }
+
+  .btn-default:hover {
+    background-color: var(--foreground);
+    color: black;
+  }
+
+  .btn-create-default {
+    display: inline-block;
+    border: 1px solid var(--foreground);
+    padding: 0.25rem 1.5rem;
+    background-color: #38a169;
+    color: var(--foreground);
+    cursor: pointer;
+    transition: all 0.2s ease; 
+  }
+
+  .btn-create-default:hover {
+    display: inline-block;
+    background-color: #68d391;
+  }
+  
+  .btn-delete-default {
+    display: inline-block;
+    border: 1px solid var(--foreground);
+    padding: 0.25rem 1.5rem;
+    background-color: #e7000b;
+    color: var(--foreground);
+    cursor: pointer;
+    transition: all 0.2s ease; 
+  }
+
+  .btn-delete-default:hover {
+    background-color: #ff6467;
+  }
+
+  .txt-title {
+    background-color: var(--background);
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+    font-size: 1.875rem;
+    line-height: 2.25rem; 
+    color: var(--foreground);
+  }
+
+  .txt-notfound{
+    text-align: center;     
+    font-style: italic;     
+    color: #f87171;
+  }
+}

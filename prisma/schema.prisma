@@ -1,0 +1,30 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client"
+  output   = "./generated/prisma"
+}
+
+datasource db {
+  provider = "sqlite"
+}
+
+model Map {
+  id Int @id @default(autoincrement())
+  name String
+  latitude Float
+  longitude Float
+  borders Json
+  pois POIs[]
+  createdAt DateTime @default(now())
+}
+
+model POIs{
+  id Int @id @default(autoincrement())
+  name String
+  latitude Float
+  longitude Float
+  mapId Int
+  map Map @relation(fields: [mapId], references: [id])
+}
