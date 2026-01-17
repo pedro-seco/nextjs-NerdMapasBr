@@ -3,8 +3,9 @@ import { ListMapsProps } from "../../../types/interfaces"
 import ButtonDelete from "../../common/ButtonDelete/ButtonDelete";
 import { ENTITIES } from "@/src/app/(ui)/types/enums";
 import ButtonDeleteAll from "../../common/ButtonDeleteAll/ButtonDeleteAll";
+import React from "react";
 
-export default async function ListOfMaps({map}: ListMapsProps){
+export default function ListOfMaps({maps}: ListMapsProps){
     return(
       <div className="relative w-full h-140 border flex flex-col">
         <span className="absolute -top-5 left-8 txt-title">
@@ -12,8 +13,8 @@ export default async function ListOfMaps({map}: ListMapsProps){
         </span>
         <div className="h-full w-full p-6 pt-10 overflow-y-auto custom-scrollbar">
           <ol className="flex flex-col gap-4 font-sans">
-            {map.length > 0 ? (
-              map.map((item) => (
+            {maps.length > 0 ? (
+              maps.map((item) => (
                 <li key={item.id} className="w-full">
                   <div className="flex items-center justify-between border-b border-white/10 pb-2 mb-2">
                     <div>

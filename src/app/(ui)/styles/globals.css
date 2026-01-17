@@ -90,6 +90,30 @@ body {
     color: var(--foreground);
   }
 
+  .tooltip-default {
+    background-color: var(--background);
+    display: flex;
+    align-items: center;
+    border-radius: 0.25rem;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+    font-size: 1.275rem;
+    line-height: 2.25rem; 
+    color: var(--foreground);
+  }
+  /*TODO - CONFIGURAR CLASSE DA PESQUISA*/
+  .search-default {
+    display: flex;
+    align-items: center;
+    border-radius: 0.25rem;
+    border-color: white;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+    font-size: 1.275rem;
+    line-height: 2.25rem; 
+    color: var(--foreground);
+  }
+
   .txt-notfound{
     text-align: center;     
     font-style: italic;     

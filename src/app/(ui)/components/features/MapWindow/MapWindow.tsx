@@ -69,7 +69,6 @@ export function MapWindow({map, mapRef} : {map: MapWithPOIsDTO, mapRef: RefObjec
                             [map.borders.ne.longitude,map.borders.ne.latitude]]}
                 mapStyle={`${process.env.NEXT_PUBLIC_MAP_STYLE}?key=${process.env.NEXT_PUBLIC_MAPTILER_KEY}`}
                 >
-
                 {map.pois.map((poi) =>(
                   <Marker key={poi.id} longitude={poi.longitude} latitude={poi.latitude} anchor='bottom'>
                       <div className="flex flex-col items-center justify-end group">
@@ -89,7 +88,6 @@ export function MapWindow({map, mapRef} : {map: MapWithPOIsDTO, mapRef: RefObjec
                     onClose={() => setNewPoint(null)}
                     closeOnClick={false}
                     closeButton={false}
-                    className="text-black red"
                   >
                     <div className="flex flex-col gap-2 p-3 text-white min-w-50">
                       <h3 className="font-bold text-sm">Novo Ponto</h3>

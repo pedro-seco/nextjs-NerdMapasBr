@@ -1,6 +1,7 @@
 import { POIs, Prisma } from "@/prisma/generated/prisma/client"
+import { POIsDTO } from "../points/[pointId]/types"
 
-export type MapWithPOIsDTO = {
+export type MapWithPOIsDTO = { //TODO - RENOMEAR POIS PARA POINTS NO PROJETO E DTO PARA RESPONSE
     id: number, 
     name: string,
     latitude: number,

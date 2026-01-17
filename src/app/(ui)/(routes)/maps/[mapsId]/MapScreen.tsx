@@ -6,13 +6,11 @@ import { MapRef } from "react-map-gl/maplibre";
 import { useCallback, useRef } from 'react';
 import { POINT_DEFAULT_ZOOM } from "@/src/app/(ui)/components/config";
 import { MapProps } from "@/src/app/(ui)/types/interfaces";
-import ButtonBack from "../../../components/common/ButtonBack/ButtonBack";
-
-
+import { HiCursorClick } from "react-icons/hi";
 
 export default function MapScreen({mapWithPOIs}: MapProps){
     const mapRef = useRef<MapRef | null>(null);
-
+    
     const onSelectPoint = useCallback((lat: number,lng: number) => {
         mapRef.current?.flyTo({center: [lng,lat], zoom: POINT_DEFAULT_ZOOM })
     },[]);
@@ -28,6 +26,10 @@ export default function MapScreen({mapWithPOIs}: MapProps){
                        {mapWithPOIs.name}
                     </h2>
                     <div className="h-full border p-5 grow">
+                        <div className="tooltip-default absolute top-8 z-10 px-4 py-2 ml-2 gap-2">
+                            <HiCursorClick/>
+                            Clique com o botão direito para começar!
+                        </div>
                         <MapWindow map={mapWithPOIs} mapRef={mapRef} />
                     </div>
                 </section>
