@@ -1,6 +1,8 @@
 export enum ENTITIES  {
     MAP = "MAP",
-    POI = "POI"
+    POINTS = "POINTS",
+    ALLMAPS= "ALLMAPS",
+    ALLPOINTS= "ALLPOINTS"
 }
 
 export enum COORTYPE  {

@@ -6,7 +6,9 @@ import { PointListProps } from "@/src/app/(ui)/types/interfaces";
 import Link from "next/link";
 import ButtonBack from "../../common/ButtonBack/ButtonBack";
 
-export default function ItemPointList({pointList, onSelectPointAction}: PointListProps){
+//TODO - Reconfigurar css dos botões (ta dando merda)
+
+export default function ItemPointList({pointList, onSelectPointAction, onUpdate}: PointListProps){
   return (
     <ol  className="flex flex-col flex-1 overflow-y-auto min-h-0 text-2xl gap-3">
       <div className="absolute text-xl -top-5 right-4 px-2 bg-[#232121] z-10">
@@ -21,7 +23,11 @@ export default function ItemPointList({pointList, onSelectPointAction}: PointLis
               className="hover:opacity-80 cursor-pointer text-left wrap-break-words">{point.name}</button>
               <div className="flex justify-between gap-5 ml-auto ">
                 <Link href={`../editpoint/${point.id}`} className="btn-default text-sm"> Editar</Link>
-                <ButtonDelete id={point.id} entity={ENTITIES.POI} />
+                <ButtonDelete
+                  id={point.id}
+                  entity={ENTITIES.POINTS}
+                  onUpdate={onUpdate}
+                />
               </div>
             </div> 
           </li>

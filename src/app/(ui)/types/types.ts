@@ -30,15 +30,15 @@ export type lngLatEvent = {
   }
 }
 
-
   //Common Types
 export type ButtonDeleteInputProps = {
-    id:number;
-    entity:ENTITIES;
-}
-
-export type ButtonDeleteAllInputProps = {
     id?:number;
     entity:ENTITIES;
+    onUpdate: () => void;
 }
 
+export type deleteProp = {
+    action: (id:number) => Promise<void>,
+    msg: string,
+    className: string,
+}

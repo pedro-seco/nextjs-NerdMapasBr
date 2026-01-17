@@ -14,7 +14,8 @@ export default function NavBar(){
                     </Link>
                 </h2>
             <div className="flex gap-10 items-center px-5">
-                <Link href="/" className="flex hover:opacity-70 text-2xl"> Início</Link>
+                <Link href="/" className="hover:opacity-70 text-2xl"> Início</Link>
+                <button className="text-2xl hover:opacity-70"> + Criar Mapa (TODO - implementar: popup na tela com redirect)</button>
                 <Link href="https://github.com/pedro-seco/nextjs-NerdMapasBr" target="_blank" className="hover:opacity-70 text-4xl"><FaSquareGithub/></Link>
             </div>
         </nav>

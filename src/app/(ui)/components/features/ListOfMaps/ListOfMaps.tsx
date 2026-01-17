@@ -1,11 +1,11 @@
+'use client';
+
 import Link from "next/link";
 import { ListMapsProps } from "../../../types/interfaces"
 import ButtonDelete from "../../common/ButtonDelete/ButtonDelete";
 import { ENTITIES } from "@/src/app/(ui)/types/enums";
-import ButtonDeleteAll from "../../common/ButtonDeleteAll/ButtonDeleteAll";
-import React from "react";
 
-export default function ListOfMaps({maps}: ListMapsProps){
+export default function ListOfMaps({maps, onUpdate}: ListMapsProps){
     return(
       <div className="relative w-full h-140 border flex flex-col">
         <span className="absolute -top-5 left-8 txt-title">
@@ -28,7 +28,11 @@ export default function ListOfMaps({maps}: ListMapsProps){
                       >
                         Acessar
                       </Link>
-                      <ButtonDelete id={item.id} entity={ENTITIES.MAP}/>
+                      <ButtonDelete
+                        id={item.id}
+                        entity={ENTITIES.MAP}
+                        onUpdate={onUpdate}
+                      />
                     </div>
                   </div>
                 </li>
@@ -38,7 +42,10 @@ export default function ListOfMaps({maps}: ListMapsProps){
             )}
           </ol>
         </div>
-        <ButtonDeleteAll entity={ENTITIES.MAP} />
+        <ButtonDelete
+          entity={ENTITIES.ALLMAPS}
+          onUpdate={onUpdate}
+        />
       </div>
     );
 }

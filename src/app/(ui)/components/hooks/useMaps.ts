@@ -1,12 +1,25 @@
-import {  MapWithPOIsDTO } from "@/src/app/api/maps/types";
-import { useCallback } from "react";
+import { useCallback, useEffect, useState } from "react";
 import fetchData from "../../services/fetchData";
+import { MapWithPOIsDTO } from "@/src/app/api/maps/types";
 
-export function useMaps() {
+export default function useMaps() {
+    const [allMaps, setAllMaps] = useState<MapWithPOIsDTO[]>([]);
+    const [loading, setLoading] = useState(false);
 
-    const fetchAllMaps = useCallback(async (): Promise<MapWithPOIsDTO[]> => {
-        return fetchData('http://localhost:3000/api/maps');
-    }, []);
+    const updateMaps = useCallback(async () => {
+            setLoading(true);
 
-    return {fetchAllMaps}
+            try {
+                const list = await fetchData('http://localhost:3000/api/maps/'); // TODO - TRANSFORMAR BASE URL EM CONST .ENV
+                setAllMaps(list);
+            } catch(error) {console.error(error)
+            } finally{ (setLoading(false)); }
+            
+        },[])
+    
+        useEffect(() => {
+            updateMaps();
+        }, [updateMaps]);
+    
+    return {allMaps, updateMaps, loading};
 }

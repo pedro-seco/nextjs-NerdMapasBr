@@ -7,6 +7,9 @@ interface EditPointPageProps {
   params: Promise<{pointId: string}>
 }
 
+//TODO - Descomissionar essa página -> transformar em popup que aparece no mapa ao clicar em editar na tela do mapa
+
+
 export default async function editPointPage({params}: EditPointPageProps) {
   const resolvedParams = await params; 
   const pointId = Number(resolvedParams.pointId);

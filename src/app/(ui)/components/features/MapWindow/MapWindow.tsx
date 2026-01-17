@@ -1,19 +1,17 @@
 'use client';
 
 import 'maplibre-gl/dist/maplibre-gl.css';
-import { MapWithPOIsDTO } from '@/src/app/api/maps/types';
 import { IoIosPin } from "react-icons/io";
-import { Map, MapRef, Marker, Popup } from 'react-map-gl/maplibre';
-import { RefObject, useState } from 'react';
+import { Map, Marker, Popup } from 'react-map-gl/maplibre';
+import { useState } from 'react';
 import { CreatePOIsOnMapAction } from './actions';
-import { useRouter } from 'next/navigation';
 import { LABEL_PIN_ZOOM_THRESHOLD, MAP_DEFAULT_ZOOM } from '../../config';
 import { lngLatEvent } from '@/src/app/(ui)/types/types';
+import { MapWindowProps } from '../../../types/interfaces';
 
-export function MapWindow({map, mapRef} : {map: MapWithPOIsDTO, mapRef: RefObject<MapRef | null>}) {
+export function MapWindow({map, mapRef, points, onUpdate} : MapWindowProps) {
     const zoomNum = MAP_DEFAULT_ZOOM;
     const labelPinZoom = LABEL_PIN_ZOOM_THRESHOLD;
-    const router = useRouter();
     const [currentZoom, setCurrentZoom] = useState(zoomNum);
     const [loading, setLoading] = useState(false);
     const [newPoint, setNewPoint] = useState<{lat: number; lng: number} | null>(null);
@@ -43,12 +41,14 @@ export function MapWindow({map, mapRef} : {map: MapWithPOIsDTO, mapRef: RefObjec
         }
 
         try {
-            await CreatePOIsOnMapAction(map.id, body)
+            await CreatePOIsOnMapAction(map.id, body) // TODO - USAR API
             setNewPoint(null);
-            router.refresh();
+            onUpdate();
         } catch(error) {console.error(error);
         } finally { setLoading(false);}
     }
+
+    //TODO - REMOVER MAX BOUNDS DOS MAPAS
 
     return(
         <div className='relative w-full h-full'>
@@ -66,14 +66,14 @@ export function MapWindow({map, mapRef} : {map: MapWithPOIsDTO, mapRef: RefObjec
                 onMove={(e) => setCurrentZoom(e.viewState.zoom)}
                 onContextMenu={handleRightClick}
                 maxBounds={[[map.borders.sw.longitude, map.borders.sw.latitude],
-                            [map.borders.ne.longitude,map.borders.ne.latitude]]}
+                            [map.borders.ne.longitude,map.borders.ne.latitude]]} 
                 mapStyle={`${process.env.NEXT_PUBLIC_MAP_STYLE}?key=${process.env.NEXT_PUBLIC_MAPTILER_KEY}`}
                 >
-                {map.pois.map((poi) =>(
-                  <Marker key={poi.id} longitude={poi.longitude} latitude={poi.latitude} anchor='bottom'>
+                {points.map((point) =>(
+                  <Marker key={point.id} longitude={point.longitude} latitude={point.latitude} anchor='bottom'>
                       <div className="flex flex-col items-center justify-end group">
                           { currentZoom > labelPinZoom &&(
-                              <span className=" text-gray-600 text-xl px-1" >{poi.name}</span>
+                              <span className=" text-gray-600 text-xl px-1" >{point.name}</span>
                           )}
                           <IoIosPin className='text-red-500 text-4xl'/>
                       </div>
