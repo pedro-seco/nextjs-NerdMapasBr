@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from "react";
 import fetchData from "../../services/fetchData";
 
-export default function useMapPoints (mapsId:string | string[] |undefined) {
+export default function usePoints (mapsId:string | string[] |undefined) {
     const [allPoints, setAllPoints] = useState<POIsOnMapDTO[]>([]);
     const [loading, setLoading] = useState(false);
 

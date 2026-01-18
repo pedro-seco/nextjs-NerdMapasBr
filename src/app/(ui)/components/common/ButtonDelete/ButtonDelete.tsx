@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { ENTITIES } from "@/src/app/(ui)/types/enums"
 import { ButtonDeleteInputProps, deleteProp } from "@/src/app/(ui)/types/types";
@@ -11,9 +10,7 @@ export default function ButtonDelete({id, entity, onUpdate}: ButtonDeleteInputPr
     async function handleDelete() {
         const isConfirmed = confirm(currDelProps.msg);
 
-        if (!isConfirmed){
-            return;
-        }
+        if (!isConfirmed) return;
 
         setLoading(true);
 
@@ -32,7 +29,7 @@ export default function ButtonDelete({id, entity, onUpdate}: ButtonDeleteInputPr
         <button
             onClick={handleDelete} disabled={loading}
             className={currDelProps.className}>
-                {loading ? "Deletando..." : "Excluir"}
+                {loading ? "Deletando..." : currDelProps.btnMsg}
         </button>
     );
 }
@@ -42,7 +39,8 @@ function getDeleteProp(entity:ENTITIES): deleteProp{
         return {
             action: async (id:number) => deleteData(`http://localhost:3000/api/maps/${id}`), // TODO - IMPLEMENTAR VARIAVEL .ENV
             msg: "Tem certeza que deseja excluir este mapa?",
-            className: "btn-delete-default"
+            className: "btn-delete-default ",
+            btnMsg: "Excluir"
         }
     }
 
@@ -50,7 +48,8 @@ function getDeleteProp(entity:ENTITIES): deleteProp{
         return {
             action: async () => deleteData(`http://localhost:3000/api/maps/`), // TODO - IMPLEMENTAR VARIAVEL .ENV
             msg: "Tem certeza que deseja excluir TODOS os mapa?",
-            className: "btn-delete-default"
+            className: "btn-delete-xl text-xl",
+            btnMsg: "Excluir TODOS os mapas"
         }
     }
 
@@ -58,14 +57,15 @@ function getDeleteProp(entity:ENTITIES): deleteProp{
         return {
             action: async (id:number) => deleteData(`http://localhost:3000/api/points/${id}`), // TODO - IMPLEMENTAR VARIAVEL .ENV
             msg: "Tem certeza que deseja excluir este ponto?",
-            className: "btn-delete-default"
+            className: "btn-delete-default text-sm",
+            btnMsg: "Excluir"
         }
     }
-
 
     return {
         action: async (id:number) => deleteData(`http://localhost:3000/api/maps/${id}/points`), // TODO - IMPLEMENTAR VARIAVEL .ENV
         msg: "Tem certeza que deseja excluir TODOS os pontos desse mapa?",
-        className: "btn-delete-default text-sm"
+        className: "btn-delete-xl text-xl",
+        btnMsg: "Excluir TODOS os pontos desse mapa"
     }
 }

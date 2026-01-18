@@ -81,6 +81,20 @@ body {
     background-color: #ff6467;
   }
 
+  .btn-delete-xl {
+    display: inline-block;
+    border-top: 1px solid var(--foreground);
+    padding: 0.25rem 1.5rem;
+    background-color: #e7000b;
+    color: var(--foreground);
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .btn-delete-xl:hover {
+    background-color: #ff6467;
+  }
+
   .txt-title {
     background-color: var(--background);
     padding-left: 0.5rem;

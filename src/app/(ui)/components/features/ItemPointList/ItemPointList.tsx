@@ -1,12 +1,8 @@
-'use client';
-
 import { ENTITIES } from "@/src/app/(ui)/types/enums";
 import ButtonDelete from "../../common/ButtonDelete/ButtonDelete";
 import { PointListProps } from "@/src/app/(ui)/types/interfaces";
 import Link from "next/link";
 import ButtonBack from "../../common/ButtonBack/ButtonBack";
-
-//TODO - Reconfigurar css dos botões (ta dando merda)
 
 export default function ItemPointList({pointList, onSelectPointAction, onUpdate}: PointListProps){
   return (
@@ -17,7 +13,7 @@ export default function ItemPointList({pointList, onSelectPointAction, onUpdate}
       {pointList.length > 0 ? (
         pointList.map((point) => (
           <li key={point.id}>
-            <div className="flex grow items-center border-b border-white/10 pb-2 mb-2">
+            <div className="flex grow items-center border-b border-white/10 gap-5 pb-2 mb-2">
               <button 
               onClick={() => onSelectPointAction?.(point.latitude,point.longitude)} 
               className="hover:opacity-80 cursor-pointer text-left wrap-break-words">{point.name}</button>

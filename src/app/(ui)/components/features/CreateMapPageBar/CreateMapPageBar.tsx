@@ -1,32 +1,47 @@
 'use client';
 
-import Form from 'next/form';
-import { useActionState } from "react";
+import { useActionState, useEffect, useRef } from "react";
 import { createMapAction } from "./actions";
 import { FormState } from '@/src/app/(ui)/types/types';
 
 const initialState: FormState = { ok: true };
 
-export default function CreateMapPageBar() {
-    const [state, formAction] = useActionState(createMapAction, initialState);
+interface CreateMapPageBarProps {
+  onUpdate: () => void;
+}
+
+export default function CreateMapPageBar({onUpdate} : CreateMapPageBarProps) {
+    const [state, formAction, isPending] = useActionState(createMapAction, initialState);
+    const formRef = useRef<HTMLFormElement>(null);
+
+    useEffect(() => {
+      if (state.ok && state.data){
+        formRef.current?.reset();
+        if (onUpdate){
+          onUpdate();
+        };
+      };
+    }, [state.ok, state.data, onUpdate])
 
     return(
       <div>
         <div className="flex w-full max-w-2xl">
-          <Form action={formAction}>
+          <form action={formAction}>
             <div className='flex w-full h-13'>
               <input 
                 name="mapName" 
                 type="text" 
-                placeholder="Rio de Janeiro, RJ"
+                placeholder="Todas as Cafeterias do Brasil"
                 maxLength={35}
+                disabled={isPending}
                 className="grow bg-[#D9D9D9] rounded-l-2xl text-black px-6 text-lg outline-none placeholder-gray-500"
               />
               <button 
                 type="submit" 
+                disabled={isPending}
                 className="btn-create-default border-0 rounded-r-2xl md:px-8 text-lg"
               >
-                + Criar Mapa
+                {isPending ? 'Criando' : '+ Criar Mapa'}
               </button>    
             </div>
 
@@ -36,7 +51,7 @@ export default function CreateMapPageBar() {
                 <p>{state.error}</p>
               </div>
             )}
-          </Form>
+          </form>
         </div>
       </div>
     );

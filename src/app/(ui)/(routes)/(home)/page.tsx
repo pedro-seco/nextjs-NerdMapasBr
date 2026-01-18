@@ -1,14 +1,10 @@
-import fetchData from "../../services/fetchData";
 import LandingPage from "./LandingPage";
 
 export default async function Home() {
-
-  const data = await (fetchData('http://localhost:3000/api/maps', {cache: 'no-store'}));
-  const maps = data || [];
-
+//TODO - ENTENDER PORQUE O 404 DAQUI NÃO É OQ EU CONFIGUREI
   return (
     <div>
-      <LandingPage maps={maps}/>
+      <LandingPage/>
     </div>
   );
 }

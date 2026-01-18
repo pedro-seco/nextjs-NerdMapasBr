@@ -49,6 +49,8 @@ export function MapWindow({map, mapRef, points, onUpdate} : MapWindowProps) {
     }
 
     //TODO - REMOVER MAX BOUNDS DOS MAPAS
+    //TODO - DESACOPLAR MAP WINDOW
+    //TODO - IMPLEMENTAR SUPERCLUSTER 
 
     return(
         <div className='relative w-full h-full'>

@@ -1,3 +1,4 @@
+import { MapDTO } from "../../api/maps/types";
 import { COORTYPE, ENTITIES } from "./enums";
 
 // CreateMap Types
@@ -19,8 +20,8 @@ export type FoundCity = {
 }
 
 export type FormState =
-  | { ok: true }
-  | { ok: false; error: string;};
+  | { ok: true; data?: MapDTO }
+  | { ok: false; error: string; data?: MapDTO }
 
 //Map Window
 export type lngLatEvent = {
@@ -41,4 +42,5 @@ export type deleteProp = {
     action: (id:number) => Promise<void>,
     msg: string,
     className: string,
+    btnMsg:string
 }

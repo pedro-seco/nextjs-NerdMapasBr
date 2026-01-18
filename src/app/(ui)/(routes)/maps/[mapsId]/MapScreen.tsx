@@ -9,14 +9,14 @@ import { MapProps } from "@/src/app/(ui)/types/interfaces";
 import { HiCursorClick } from "react-icons/hi";
 import { useFilter } from "../../../components/hooks/useFilter";
 import { useParams } from "next/navigation";
-import useMapPoints from "../../../components/hooks/useMapPoints";
+import usePoints from "../../../components/hooks/useMapPoints";
 
 
 //TODO - REFATORAR MAPWINDOW -> QUEBRAR EM COMPONENTES MENORES: MAP, POPUP E MARKER
 export default function MapScreen({mapWithPOIs}: MapProps){
     const mapRef = useRef<MapRef | null>(null);
     const {mapsId} = useParams();
-    const {allPoints, updatePoints} = useMapPoints(mapsId);
+    const {allPoints, updatePoints} = usePoints(mapsId);
     const {searchQuery, setSearchQuery, filteredData} = useFilter(allPoints, (pois) => pois.name);
 
     const onSelectPoint = useCallback((lat: number,lng: number) => {
