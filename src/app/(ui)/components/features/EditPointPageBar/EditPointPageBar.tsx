@@ -3,7 +3,7 @@
 import Form from 'next/form';
 import { useActionState } from "react";
 import { FormState } from '@/src/app/(ui)/types/types';
-import { createMapAction } from '../CreateMapPageBar/actions';
+import { createMapAction } from '../CreateMapBar/actions';
 import { editPointAction } from './actions';
 
 

@@ -7,6 +7,6 @@ export default async function fetchData(url:string, options: RequestInit = {}) {
         }
 
         const data = await response.json();
-        return data
-    } catch(error) {console.error(error); return;} 
+        return data;
+    } catch(error) {console.error("Erro ao buscar dados. ", error); return;} 
 }

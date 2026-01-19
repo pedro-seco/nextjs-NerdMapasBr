@@ -25,8 +25,7 @@ INSERT INTO Map (name,latitude,longitude,borders)
 VALUES(
     'Rio de Janeiro',
     -22.9110137,
-    -43.2093727,
-    'borders{}');
+    -43.2093727);
 
 SELECT 
     *

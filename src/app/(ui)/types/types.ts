@@ -1,5 +1,5 @@
 import { MapDTO } from "../../api/maps/types";
-import { COORTYPE, ENTITIES } from "./enums";
+import { ENTITIES } from "./enums";
 
 // CreateMap Types
 export type Borders = {
@@ -7,21 +7,59 @@ export type Borders = {
     ne: { longitude: number; latitude: number};
 }
 
-export const LIMITS: Record<COORTYPE, { min: number; max: number }> = {
-  [COORTYPE.LAT]: { min: -90, max: 90 },
-  [COORTYPE.LONG]: { min: -180, max: 180 },
-};
+export type FormState =
+  | { ok: true }
+  | { ok: false; error: string;};
 
-export type FoundCity = {
-  boundingbox: [string,string, string, string];
-  lat: string;
-  lon: string;
-  name: string;
+export type FormError = {
+  ok: false; error: string; data: null
 }
 
-export type FormState =
+export type CreateMapFormState =
   | { ok: true; data?: MapDTO }
-  | { ok: false; error: string; data?: MapDTO }
+  | FormError
+
+export type NominatingAdressResponse = {
+  [key: string]: string | undefined;
+
+  house_number?: string;
+  road?: string
+  suburb?: string;
+  city_district?: string;
+  city?: string;
+  municipality?: string;
+  county?: string;
+  state_district?: string;
+  state?: string;
+  "ISO3166-2-lvl4"?: string;
+  region?: string;
+  postcode?: string;
+  country?: string;
+  country_code?: string;
+}
+
+export type NominatingResponse = {
+  place_id: number;
+  licence: string;
+  osm_type: string;
+  osm_id: number;
+  lat: string;
+  lon: string;
+  category: string;
+  type: string;
+  place_rank: number;
+  importance: number;
+  adresstype: string;
+  name: string;
+  display_name: string;
+  address: NominatingAdressResponse;
+  boundingbox: [ string, string, string, string ]
+}
+
+export type SearchFormState =
+  | { ok: true; data: {name: string; lat: number; lon: number}[] }
+  | { ok: true; data: null}
+  | FormError
 
 //Map Window
 export type lngLatEvent = {

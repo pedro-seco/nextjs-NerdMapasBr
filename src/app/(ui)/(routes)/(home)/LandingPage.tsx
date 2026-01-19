@@ -1,11 +1,12 @@
 'use client'
 
 import ListOfMaps from "../../components/features/ListOfMaps/ListOfMaps";
-import Link from "next/link";
 import { useFilter } from "../../components/hooks/useFilter";
 import SearchBar from "../../components/common/SearchBar/SearchBar";
 import useMaps from "../../components/hooks/useMaps";
-import CreateMapPageBar from "../../components/features/CreateMapPageBar/CreateMapPageBar";
+import CreateMapBar from "../../components/features/CreateMapBar/CreateMapBar";
+
+//TODO - REVAMP VISUAL DO SITE
 
 export default function LandingPage() {
   const {allMaps, updateMaps} = useMaps();
@@ -15,7 +16,7 @@ export default function LandingPage() {
     <div className="h-full p-8 sm:p-6">
       <main className="h-full grow flex flex-col items-center justify-center w-full pb-10">
         <div>
-          <CreateMapPageBar onUpdate={updateMaps}/>
+          <CreateMapBar onUpdate={updateMaps}/>
         </div>
         <div className="search-default gap-2">
           <SearchBar

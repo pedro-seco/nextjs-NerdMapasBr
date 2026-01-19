@@ -9,10 +9,8 @@ export default async function createMap(payload: createMapBody) {
             body: JSON.stringify(payload),
         });
         
-        if (!response.ok){
-            throw new Error (`Erro ao enviar dados: ${response.statusText}`);
-        }
+        if (!response.ok) throw new Error (`Erro ao enviar dados: ${response.statusText}`);
 
         return await response.json();
-    } catch(error) {console.error(error); return;} 
+    } catch(error) {console.error("Erro ao enviar dados: ", error); return;} 
 }

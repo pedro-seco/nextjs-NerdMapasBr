@@ -4,8 +4,3 @@ export enum ENTITIES  {
     ALLMAPS= "ALLMAPS",
     ALLPOINTS= "ALLPOINTS"
 }
-
-export enum COORTYPE  {
-    LAT = "LAT",
-    LONG = "LONG"
-}

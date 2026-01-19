@@ -37,3 +37,7 @@ export interface MapWindowProps {
 export interface LandingPageProps {
     maps: MapWithPOIsDTO[]
 }
+
+export interface CreateMapBarProps {
+  onUpdate: () => void;
+}

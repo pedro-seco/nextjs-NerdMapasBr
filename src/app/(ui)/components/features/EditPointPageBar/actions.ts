@@ -3,7 +3,7 @@
 import { redirect } from "next/navigation";
 import { FormState } from "@/src/app/(ui)/types/types";
 import { editPOIs } from "@/src/app/api/points/[pointId]/service";
-import { toFormError } from "../../common/toFormError";
+import { toFormError } from "../../utils/toFormError";
 
 export async function editPointAction(_: FormState, formData: FormData): Promise<FormState> {
   const mapId = Number(formData.get("mapId"));
