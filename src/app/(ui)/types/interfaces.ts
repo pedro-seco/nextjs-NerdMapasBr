@@ -15,7 +15,8 @@ export interface ListMapsProps {
 export interface PointListProps {
   onSelectPointAction?: (lat: number, lng: number) => void;
   pointList: POIsDTO[];
-  onUpdate: () => void
+  onUpdate: () => void;
+  onEditPointAction: (point:POIsDTO) => void;
 }
 
 export interface MapItemProps {
@@ -25,6 +26,7 @@ export interface MapItemProps {
     setSearchQuery: (query: string) => void;
     points: POIsOnMapDTO[];
     onUpdate: () => void
+    onEditPoint: (point: POIsDTO) => void;
 }
 
 export interface MapWindowProps {
@@ -32,6 +34,11 @@ export interface MapWindowProps {
   mapRef: RefObject<MapRef | null>;
   points: POIsOnMapDTO[];
   onUpdate: () => void;
+  tempMarker?: { lat: number; lng: number; name: string } | null;
+  onClearTemp?: () => void;
+  pointToEdit?: POIsDTO | null;
+  onCancelEdit: () => void;
+
 }
 
 export interface LandingPageProps {

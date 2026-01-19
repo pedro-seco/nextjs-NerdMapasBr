@@ -11,15 +11,15 @@ export type FormState =
   | { ok: true }
   | { ok: false; error: string;};
 
-export type FormError = {
-  ok: false; error: string; data: null
-}
+export type FormError = 
+  | {ok: false; error: string; data: null}
+  | {ok: false; error: string;}
 
 export type CreateMapFormState =
   | { ok: true; data?: MapDTO }
   | FormError
 
-export type NominatingAdressResponse = {
+export type NominatingAddressResponse = {
   [key: string]: string | undefined;
 
   house_number?: string;
@@ -52,7 +52,7 @@ export type NominatingResponse = {
   adresstype: string;
   name: string;
   display_name: string;
-  address: NominatingAdressResponse;
+  address: NominatingAddressResponse;
   boundingbox: [ string, string, string, string ]
 }
 

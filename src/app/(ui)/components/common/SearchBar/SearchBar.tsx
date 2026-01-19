@@ -1,5 +1,6 @@
 import { FaSearch } from "react-icons/fa";
 import { NominatingResponse } from "../../../types/types";
+import { getAddress } from "../../utils/getAddress";
 
 interface SearchBarProps {
     value: string;
@@ -10,6 +11,8 @@ interface SearchBarProps {
     onSearchEnter?: () => void;
 }
 
+
+//TODO - IMPLEMENTAR BUTTON X DA MUI
 export default function SearchBar({
         value,
         onChange,
@@ -45,7 +48,8 @@ export default function SearchBar({
                                 onClick={() => onSelectSuggestion(item)}
                                 className="p-3 hover:bg-gray-100 cursor-pointer text-sm border-b last:border-b-0 text-gray-700 text-left"
                             >
-                                {item.display_name}
+                                {item.name} <br></br>
+                                {getAddress(item.address)}
                             </li>
                         ))}
                     </ul>

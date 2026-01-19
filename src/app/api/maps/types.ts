@@ -20,7 +20,7 @@ export type MapDTO = {
     createdAt: Date
 }
 
-export type createPOIsBody = {
+export type createPointBody = {
     name: string,
     lat: number,
     lng: number,

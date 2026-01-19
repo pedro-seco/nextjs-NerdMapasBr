@@ -31,7 +31,10 @@ export default function useNominatim() {
             },
             cache: "no-store",
         }
+        
     ) as NominatingResponse[];
+
+    setSuggestions(results);
     
     } catch (error) { console.error("Erro ao buscar no Nominatim:", error); setSuggestions([]);
     } finally { setLoading(false);}

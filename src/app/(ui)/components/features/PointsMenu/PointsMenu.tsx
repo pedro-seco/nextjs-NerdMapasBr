@@ -6,7 +6,7 @@ import { MapItemProps } from "@/src/app/(ui)/types/interfaces";
 import SearchBar from "../../common/SearchBar/SearchBar";
 import ButtonDelete from "../../common/ButtonDelete/ButtonDelete";
 
-export default function PointsMenu({map, onSelectPoint, searchQuery, setSearchQuery, points, onUpdate}: MapItemProps){
+export default function PointsMenu({map, onSelectPoint, searchQuery, setSearchQuery, points, onUpdate, onEditPoint}: MapItemProps){
 
   return(
       <div className="relative w-full h-full border flex flex-col">
@@ -27,6 +27,7 @@ export default function PointsMenu({map, onSelectPoint, searchQuery, setSearchQu
             pointList={points}
             onSelectPointAction={onSelectPoint}
             onUpdate={onUpdate}
+            onEditPointAction={onEditPoint}
           />
         </div>
         <ButtonDelete
