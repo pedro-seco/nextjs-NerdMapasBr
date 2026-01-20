@@ -10,7 +10,7 @@ export default function useMaps() {
             setLoading(true);
 
             try {
-                const list = await fetchData('http://localhost:3000/api/maps/'); // TODO - TRANSFORMAR BASE URL EM CONST .ENV
+                const list = await fetchData(`${process.env.NEXT_PUBLIC_API_URL}/api/maps/`);
                 setAllMaps(list);
             } catch(error) {console.error(error)
             } finally{ (setLoading(false)); }

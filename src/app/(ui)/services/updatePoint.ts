@@ -2,7 +2,7 @@ import { createPointBody } from "../../api/maps/types";
 
 export default async function updatePoint(pointId: string, payload: createPointBody) {
     try {
-        const response = await fetch(`http://localhost:3000/api/points/${pointId}`, {
+        const response = await fetch(`/api/points/${pointId}`, {
             method: 'PUT',
             headers: {
                 'Content-type': 'application/json'

@@ -43,12 +43,11 @@ export default function ButtonDelete({ id, entity, onUpdate }: ButtonDeleteInput
 }
 
 function getDeleteProp(entity: ENTITIES): deleteProp {
-    const baseUrl = "http://localhost:3000/api"; // TODO: Usar process.env.NEXT_PUBLIC_API_URL
 
     switch (entity) {
         case ENTITIES.POINTS:
             return {
-                action: async (id: number) => deleteData(`${baseUrl}/points/${id}`),
+                action: async (id: number) => deleteData(`/api/points/${id}`),
                 msg: "Tem certeza que deseja excluir este ponto?",
                 className: "p-2 rounded-md text-gray-400 hover:text-red-500 hover:bg-red-500/10 cursor-pointer",
                 label: <HiTrash size={18} />, 
@@ -57,7 +56,7 @@ function getDeleteProp(entity: ENTITIES): deleteProp {
 
         case ENTITIES.MAP:
             return {
-                action: async (id: number) => deleteData(`${baseUrl}/maps/${id}`),
+                action: async (id: number) => deleteData(`/api/maps/${id}`),
                 msg: "Tem certeza que deseja excluir este mapa e todos os seus pontos?",
                 className: "p-2 rounded-md text-gray-400 hover:text-red-500 hover:bg-red-500/10 cursor-pointer",
                 label: <HiTrash size={20} />,
@@ -66,7 +65,7 @@ function getDeleteProp(entity: ENTITIES): deleteProp {
 
         case ENTITIES.ALLMAPS:
             return {
-                action: async () => deleteData(`${baseUrl}/maps/`),
+                action: async () => deleteData(`/api/maps/`),
                 msg: "Isso excluirá TODOS os mapas do sistema. Essa ação é irreversível.",
                 className: "w-full py-2 px-4 bg-red-900/20 border border-red-500/30 text-red-500 rounded-lg hover:bg-red-900/40 hover:border-red-500 font-bold text-sm flex gap-2 uppercase tracking-wide cursor-pointer",
                 label: (
@@ -79,7 +78,7 @@ function getDeleteProp(entity: ENTITIES): deleteProp {
 
         default:
             return {
-                action: async (id: number) => deleteData(`${baseUrl}/maps/${id}/points`),
+                action: async (id: number) => deleteData(`/api/maps/${id}/points`),
                 msg: "Tem certeza que deseja limpar todos os pontos deste mapa?",
                 className: "w-full py-2 px-4 bg-red-900/20 border border-red-500/30 text-red-500 rounded-lg hover:bg-red-900/40 hover:border-red-500 font-bold text-sm flex gap-2 uppercase tracking-wide cursor-pointer",
                 label: (

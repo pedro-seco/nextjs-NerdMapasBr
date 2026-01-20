@@ -10,10 +10,10 @@ import { MapWindowProps } from '../../../types/interfaces';
 import createPoint from '../../../services/createPoint';
 import updatePoint from '../../../services/updatePoint';
 import useSupercluster from "use-supercluster";
-import { HiX } from 'react-icons/hi'; // Ícone de fechar
+import { HiX } from 'react-icons/hi';
+import { useSnackbar } from 'notistack';
 
 export function MapWindow({ map, mapRef, points, onUpdate, tempMarker, onClearTemp, pointToEdit, onCancelEdit }: MapWindowProps) {
-    // --- (LÓGICA MANTIDA INTACTA) ---
     const zoomNum = MAP_DEFAULT_ZOOM;
     const labelPinZoom = LABEL_PIN_ZOOM_THRESHOLD;
 
@@ -23,6 +23,7 @@ export function MapWindow({ map, mapRef, points, onUpdate, tempMarker, onClearTe
     const [pointName, setPointName] = useState("");
     const [activePoint, setActivePoint] = useState<{ lat: number; lng: number } | null>(null);
     const [isEditing, setIsEditing] = useState(false);
+    const { enqueueSnackbar } = useSnackbar();
 
     const pointsGeoJSON = useMemo(() => {
         return points.map(point => ({
@@ -91,19 +92,25 @@ export function MapWindow({ map, mapRef, points, onUpdate, tempMarker, onClearTe
 
     async function handlePoint() {
         if (loading || !activePoint || !pointName) return;
-        if (pointName.trim().length === 0) return alert("Nome inválido.");
+        if (pointName.trim().length === 0){
+            enqueueSnackbar("O nome do local não pode ser vazio.", { variant: 'warning' });
+            return;
+        }
         setLoading(true);
         const body = { name: pointName, lat: activePoint.lat, lng: activePoint.lng }
         try {
             if (isEditing && pointToEdit) {
                 await updatePoint(String(pointToEdit.id), body);
+                enqueueSnackbar("Local atualizado com sucesso!", { variant: 'success' });
             } else {
                 await createPoint(map.id, body);
+                enqueueSnackbar("Novo local criado!", { variant: 'success' });
             }
             handleClosePopup();
             onUpdate();
         } catch (error) {
-            alert("Erro ao salvar o ponto: " + error);
+            console.error(error);
+            enqueueSnackbar("Erro ao salvar o ponto. Tente novamente.", { variant: 'error' });
         } finally { setLoading(false); }
     }
 

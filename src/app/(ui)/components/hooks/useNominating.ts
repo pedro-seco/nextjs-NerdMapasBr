@@ -16,7 +16,7 @@ export default function useNominatim() {
     setLoading(true);
 
     try {
-        const url = `https://nominatim.openstreetmap.org/search?` + //TODO - .ENV
+        const url = `https://nominatim.openstreetmap.org/search?` +
           new URLSearchParams({
             q: searchQuery,
             countrycodes: 'br',

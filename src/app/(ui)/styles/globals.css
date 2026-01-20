@@ -1,136 +1,71 @@
 @import "tailwindcss";
 
 :root {
-  --background: #232121;
-  --foreground: #FFFFFF;
-  --surface: #d9d9d9;
-  --primary: #a6a6a6;
-  --text-inverse:#000000;
+  --background: #0A0A0A;       
+  --foreground: #EDEDED;       
+  --surface: #141414;          
+  --border: #262626;           
+  --primary: #10B981;          
+  --danger: #EF4444;           
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-surface: var(--surface);
+  --color-border: var(--border);
   --color-primary: var(--primary);
-  --color-text-inverse: var(--text-inverse);
+  --color-danger: var(--danger);
+  
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
 
 body {
-  background-color: var(--color-background);
+  background-color: var(--background);
   color: var(--foreground);
   font-family: var(--font-geist-sans);
+  overflow-x: hidden;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--background);
+}
+::-webkit-scrollbar-thumb {
+  background: #333;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
 }
 
 @layer components {
+
   .maplibregl-popup-content {
-    @apply bg-background! p-0! rounded-lg! shadow-xl!;
+    @apply bg-[#1A1A1A]! text-white! p-0! rounded-lg! shadow-2xl! border! border-white/10!;
+  }
+
+  .maplibregl-popup-close-button {
+    @apply text-gray-400 hover:text-white text-xl px-2 py-1 outline-none focus:outline-none!;
   }
 
   .maplibregl-popup-anchor-top .maplibregl-popup-tip {
-    @apply border-b-background!;
+    border-bottom-color: #1A1A1A !important;
   }
 
   .maplibregl-popup-anchor-bottom .maplibregl-popup-tip {
-    @apply border-t-background!; 
+    border-top-color: #1A1A1A !important;
   }
 
-  .btn-default {
-    display: inline-block;
-    border: 1px solid var(--foreground);
-    padding: 0.25rem 1.5rem;
-    background-color: transparent;
-    color: var(--foreground);
-    cursor: pointer;
-    transition: all 0.2s ease; 
+  .maplibregl-popup-anchor-left .maplibregl-popup-tip {
+    border-right-color: #1A1A1A !important;
   }
 
-  .btn-default:hover {
-    background-color: var(--foreground);
-    color: black;
-  }
-
-  .btn-create-default {
-    display: inline-block;
-    border: 1px solid var(--foreground);
-    padding: 0.25rem 1.5rem;
-    background-color: #38a169;
-    color: var(--foreground);
-    cursor: pointer;
-    transition: all 0.2s ease; 
-  }
-
-  .btn-create-default:hover {
-    display: inline-block;
-    background-color: #68d391;
-  }
-  
-  .btn-delete-default {
-    display: inline-block;
-    border: 1px solid var(--foreground);
-    padding: 0.25rem 1.5rem;
-    background-color: #e7000b;
-    color: var(--foreground);
-    cursor: pointer;
-    transition: all 0.2s ease; 
-  }
-
-  .btn-delete-default:hover {
-    background-color: #ff6467;
-  }
-
-  .btn-delete-xl {
-    display: inline-block;
-    border-top: 1px solid var(--foreground);
-    padding: 0.25rem 1.5rem;
-    background-color: #e7000b;
-    color: var(--foreground);
-    cursor: pointer;
-    transition: all 0.2s ease;
-  }
-
-  .btn-delete-xl:hover {
-    background-color: #ff6467;
-  }
-
-  .txt-title {
-    background-color: var(--background);
-    padding-left: 0.5rem;
-    padding-right: 0.5rem;
-    font-size: 1.875rem;
-    line-height: 2.25rem; 
-    color: var(--foreground);
-  }
-
-  .tooltip-default {
-    background-color: var(--background);
-    display: flex;
-    align-items: center;
-    border-radius: 0.25rem;
-    padding-left: 0.5rem;
-    padding-right: 0.5rem;
-    font-size: 1.275rem;
-    line-height: 2.25rem; 
-    color: var(--foreground);
-  }
-  /*TODO - CONFIGURAR CLASSE DA PESQUISA*/
-  .search-default {
-    display: flex;
-    align-items: center;
-    border-radius: 0.25rem;
-    border-color: white;
-    padding-left: 0.5rem;
-    padding-right: 0.5rem;
-    font-size: 1.275rem;
-    line-height: 2.25rem; 
-    color: var(--foreground);
-  }
-
-  .txt-notfound{
-    text-align: center;     
-    font-style: italic;     
-    color: #f87171;
+  .maplibregl-popup-anchor-right .maplibregl-popup-tip {
+    border-left-color: #1A1A1A !important;
   }
 }

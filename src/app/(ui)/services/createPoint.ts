@@ -1,9 +1,8 @@
 import { createPointBody } from "../../api/maps/types";
 
 export default async function createPoint(mapId: number, payload: createPointBody) {
-    //TODO - IMPLEMENTAR .ENV (BASE_URL)
     try {
-        const response = await fetch(`http://localhost:3000/api/maps/${mapId}/points`, {
+        const response = await fetch(`/api/maps/${mapId}/points`, {
             method: 'POST',
             headers: {'Content-type': 'application/json'},
             body: JSON.stringify(payload),

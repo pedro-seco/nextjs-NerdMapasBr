@@ -48,7 +48,6 @@ export default function LandingPage() {
                 <ButtonDelete
                     entity={ENTITIES.ALLMAPS}
                     onUpdate={updateMaps}
-
                 />
             </div>
         </div>

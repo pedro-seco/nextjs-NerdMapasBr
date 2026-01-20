@@ -1,9 +1,8 @@
 import { createMapBody } from "../../api/maps/types";
 
 export default async function createMap(payload: createMapBody) {
-    //TODO - IMPLEMENTAR .ENV
     try {
-        const response = await fetch('http://localhost:3000/api/maps', {
+        const response = await fetch('/api/maps', {
             method: 'POST',
             headers: {'Content-type': 'application/json'},
             body: JSON.stringify(payload),

@@ -35,7 +35,6 @@ export default function CreateMapBar({ onUpdate }: CreateMapBarProps) {
                         required
                         className="grow bg-neutral-900 text-white px-4 py-3 outline-none placeholder-gray-500 text-sm md:text-base disabled:opacity-50"
                     />
-
                     <button
                         type="submit"
                         disabled={isPending}

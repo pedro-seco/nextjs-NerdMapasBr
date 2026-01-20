@@ -12,7 +12,7 @@ export default function usePoints (mapsId:string | string[] |undefined) {
             setLoading(true);
 
             try {
-                const list = await fetchData(`http://localhost:3000/api/maps/${mapsId}`); // TODO - TRANSFORMAR BASE URL EM CONST .ENV
+                const list = await fetchData(`${process.env.NEXT_PUBLIC_API_URL}/api/maps/${mapsId}`);
                 setAllPoints(list.pois);
             } catch(error) {console.error(error)
             } finally{(setLoading(false));}
