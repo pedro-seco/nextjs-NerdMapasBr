@@ -1,7 +1,6 @@
 import { ENTITIES } from "@/src/app/(ui)/types/enums";
 import ButtonDelete from "../../common/ButtonDelete/ButtonDelete";
 import { PointListProps } from "@/src/app/(ui)/types/interfaces";
-import Link from "next/link";
 import ButtonBack from "../../common/ButtonBack/ButtonBack";
 
 export default function ItemPointList({pointList, onSelectPointAction, onUpdate, onEditPointAction}: PointListProps){

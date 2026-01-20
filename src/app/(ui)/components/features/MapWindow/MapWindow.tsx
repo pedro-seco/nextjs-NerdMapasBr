@@ -3,12 +3,13 @@
 import 'maplibre-gl/dist/maplibre-gl.css';
 import { IoIosPin } from "react-icons/io";
 import { Map, Marker, Popup } from 'react-map-gl/maplibre';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { LABEL_PIN_ZOOM_THRESHOLD, MAP_DEFAULT_ZOOM } from '../../config';
 import { lngLatEvent } from '@/src/app/(ui)/types/types';
 import { MapWindowProps } from '../../../types/interfaces';
 import createPoint from '../../../services/createPoint';
 import updatePoint from '../../../services/updatePoint';
+import useSupercluster from "use-supercluster";
 
 export function MapWindow({map, mapRef, points, onUpdate, tempMarker, onClearTemp, pointToEdit, onCancelEdit} : MapWindowProps) {
   const zoomNum = MAP_DEFAULT_ZOOM;
@@ -16,24 +17,65 @@ export function MapWindow({map, mapRef, points, onUpdate, tempMarker, onClearTem
 
   const [currentZoom, setCurrentZoom] = useState(zoomNum);
   const [loading, setLoading] = useState(false);
+  const [bounds, setBounds] = useState<any>(null);
   const [pointName, setPointName] = useState("");
   const [activePoint, setActivePoint] = useState<{lat: number; lng: number} | null>(null);
   const [isEditing, setIsEditing] = useState(false);
   
-  useEffect(() => {
-      if (pointToEdit) {
-        setActivePoint({ lat: pointToEdit.latitude, lng: pointToEdit.longitude });
-        setPointName(pointToEdit.name);
-        setIsEditing(true);
-        
-        if(onClearTemp) onClearTemp();
-
+  const pointsGeoJSON = useMemo(() => {
+    return points.map(point => ({
+      type: "Feature" as const,
+      properties: { 
+        cluster: false, 
+        pointId: point.id, 
+        name: point.name,
+      },
+      geometry: {
+        type: "Point" as const,
+        coordinates: [point.longitude, point.latitude]
       }
-    }, [pointToEdit, isEditing, onClearTemp]);
+    }));
+  }, [points]);
+
+  const { clusters, supercluster } = useSupercluster({
+    points: pointsGeoJSON,
+    bounds: bounds,
+    zoom: currentZoom,
+    options: { radius: 75, maxZoom: 18 } 
+  });
+  
+  const updateMapBounds = useCallback(() => {
+    if (mapRef.current) {
+      const mapInstance = mapRef.current.getMap();
+      const b = mapInstance.getBounds();
+      
+      setBounds([
+        b.getWest(),
+        b.getSouth(),
+        b.getEast(),
+        b.getNorth()
+      ]);
+      setCurrentZoom(mapInstance.getZoom());
+    }
+  }, [mapRef]);
+
+  const handleMove = (e: any) => {
+    updateMapBounds();
+  };
+
+  useEffect(() => {
+    if (pointToEdit) {
+      setActivePoint({ lat: pointToEdit.latitude, lng: pointToEdit.longitude });
+      setPointName(pointToEdit.name);
+      setIsEditing(true);
+      
+      if(onClearTemp) onClearTemp();
+
+    }
+  }, [pointToEdit, isEditing, onClearTemp]);
 
   const handleRightClick = (event: lngLatEvent) =>{
-            if(onClearTemp) onClearTemp();
-
+    if(onClearTemp) onClearTemp();
     onCancelEdit();
     setIsEditing(false);
 
@@ -41,15 +83,29 @@ export function MapWindow({map, mapRef, points, onUpdate, tempMarker, onClearTem
 
     setActivePoint({lat,lng});
     setPointName("");
-
   }
 
   const handleClosePopup = () => {
-        setActivePoint(null);
-        setPointName("");
-        setIsEditing(false);
-        onCancelEdit();
+    setActivePoint(null);
+    setPointName("");
+    setIsEditing(false);
+    onCancelEdit();
+  }
+
+  const handleClusterClick = (clusterId: number, lat: number, lng: number) => {
+    if (supercluster) {
+        const expansionZoom = Math.min(
+            supercluster.getClusterExpansionZoom(clusterId), 
+            20
+        );
+        
+        mapRef.current?.flyTo({
+            center: [lng, lat],
+            zoom: expansionZoom,
+            duration: 500
+        });
     }
+  };
 
   async function handlePoint(){
     if (loading || !activePoint || !pointName) return;
@@ -76,9 +132,6 @@ export function MapWindow({map, mapRef, points, onUpdate, tempMarker, onClearTem
     } finally { setLoading(false); }
   }
 
-  //TODO - DESACOPLAR MAP WINDOW
-  //TODO - IMPLEMENTAR SUPERCLUSTER 
-
   return(
     <div className='relative w-full h-full'>
       <Map
@@ -92,23 +145,69 @@ export function MapWindow({map, mapRef, points, onUpdate, tempMarker, onClearTem
           position: 'absolute',
           inset:0
         }}
-        onMove={(e) => setCurrentZoom(e.viewState.zoom)}
+        onMove={handleMove}
         onContextMenu={handleRightClick}
         maxBounds={[[map.borders.sw.longitude, map.borders.sw.latitude],
                     [map.borders.ne.longitude,map.borders.ne.latitude]]} 
         mapStyle={`${process.env.NEXT_PUBLIC_MAP_STYLE}?key=${process.env.NEXT_PUBLIC_MAPTILER_KEY}`}
         >
 
-        {points.map((point) =>(
-          <Marker key={point.id} longitude={point.longitude} latitude={point.latitude} anchor='bottom'>
-            <div className="flex flex-col items-center justify-end group">
-              { currentZoom > labelPinZoom &&(
-                <span className=" text-gray-600 text-xl px-1" >{point.name}</span>
-              )}
-              <IoIosPin className='text-red-500 text-4xl'/>
-            </div>
-          </Marker>
-        ))}
+        {clusters.map((cluster) => {
+          const [longitude, latitude] = cluster.geometry.coordinates;
+          const { cluster: isCluster } = cluster.properties;
+
+          if (isCluster) {
+            const properties = cluster.properties as any;
+            const pointCount = properties.point_count;
+            const clusterId = cluster.id as number;
+
+            return (
+              <Marker 
+                key={`cluster-${clusterId}`} 
+                latitude={latitude} 
+                longitude={longitude}
+              >
+                <div 
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handleClusterClick(clusterId, latitude, longitude);
+                  }}
+                  className="flex items-center justify-center bg-red-600 text-white rounded-full font-bold border-2 border-white shadow-lg cursor-pointer hover:bg-red-700 transition-colors"
+                  style={{
+                    width: `${30 + (pointCount / points.length) * 20}px`,
+                    height: `${30 + (pointCount / points.length) * 20}px`,
+                    fontSize: '14px'
+                  }}
+                >
+                  {pointCount}
+                </div>
+              </Marker>
+            );
+          }
+
+          return (
+            <Marker 
+                key={`point-${cluster.properties.pointId}`} 
+                longitude={longitude} 
+                latitude={latitude} 
+                anchor='bottom'
+            >
+              <div 
+                className="flex flex-col items-center justify-end group cursor-pointer"
+                onClick={(e) => {
+                    e.stopPropagation();
+                }}
+              >
+                { currentZoom > labelPinZoom &&(
+                  <span className="text-gray-600 text-xl px-1 font-semibold bg-white/80 rounded mb-1 shadow-sm whitespace-nowrap">
+                      {cluster.properties.name}
+                  </span>
+                )}
+                <IoIosPin className='text-red-500 text-4xl drop-shadow-md'/>
+              </div>
+            </Marker>
+          );
+        })}
 
         {tempMarker && (
            <Marker longitude={tempMarker.lng} latitude={tempMarker.lat} anchor='bottom'>

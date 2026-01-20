@@ -1,4 +1,5 @@
 import { POIs } from "@/prisma/generated/prisma/client";
+import { POIsDTO } from "./types";
 
 export function toPOIsDTO(pOI: POIs): POIsDTO{
     return {

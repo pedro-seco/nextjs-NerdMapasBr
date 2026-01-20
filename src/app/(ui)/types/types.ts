@@ -11,9 +11,11 @@ export type FormState =
   | { ok: true }
   | { ok: false; error: string;};
 
-export type FormError = 
-  | {ok: false; error: string; data: null}
-  | {ok: false; error: string;}
+export type FormError = {
+  ok: false; 
+  error: string; 
+  data: null
+}
 
 export type CreateMapFormState =
   | { ok: true; data?: MapDTO }

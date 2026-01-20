@@ -33,7 +33,7 @@ export default function ButtonDelete({id, entity, onUpdate}: ButtonDeleteInputPr
         </button>
     );
 }
-//TODO CONFIGURAR TEXTO DO BOTÃO (LINHA 35)
+
 function getDeleteProp(entity:ENTITIES): deleteProp{
     if(entity == ENTITIES.MAP){
         return {
