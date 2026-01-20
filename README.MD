@@ -113,8 +113,8 @@ nerdmapas-br/
 
 ### Landing Page 
 
-![Landing Page](https://imgur.com/iXVLFvZ)
+![Landing Page](https://i.imgur.com/iXVLFvZ.png)
 
 ### Mapa Interativo
 
-![Mapa Interativo](https://imgur.com/HoiA8qK)
+![Mapa Interativo](https://i.imgur.com/HoiA8qK.png)
