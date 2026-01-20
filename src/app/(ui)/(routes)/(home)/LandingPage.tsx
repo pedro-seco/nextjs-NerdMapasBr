@@ -5,7 +5,7 @@ import { useFilter } from "../../components/hooks/useFilter";
 import SearchBar from "../../components/common/SearchBar/SearchBar";
 import useMaps from "../../components/hooks/useMaps";
 import CreateMapBar from "../../components/features/CreateMapBar/CreateMapBar";
-import { FaMapMarkedAlt } from "react-icons/fa"; // Sugestão de ícone (opcional)
+import { FaMapMarkedAlt } from "react-icons/fa";
 import ButtonDelete from "../../components/common/ButtonDelete/ButtonDelete";
 import { ENTITIES } from "../../types/enums";
 
