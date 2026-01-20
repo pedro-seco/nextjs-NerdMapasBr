@@ -82,5 +82,6 @@ export type deleteProp = {
     action: (id:number) => Promise<void>,
     msg: string,
     className: string,
-    btnMsg:string
+    label: React.ReactNode
+    title?: string;
 }

@@ -2,7 +2,7 @@ import { Borders } from "../types/types";
 
 export const POINT_DEFAULT_ZOOM = 16;
 export const MAP_DEFAULT_ZOOM = 2;
-export const LABEL_PIN_ZOOM_THRESHOLD = 15;
+export const LABEL_PIN_ZOOM_THRESHOLD = 14;
 
 export const BRAZIL_DEFAULTS = {
   latitude: -10.3333333,

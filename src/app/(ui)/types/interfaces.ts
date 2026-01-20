@@ -22,8 +22,8 @@ export interface PointListProps {
 export interface MapItemProps {
     map: MapWithPOIsDTO;
     onSelectPoint: (lat: number, lng: number) => void;
-    searchQuery: string;
-    setSearchQuery: (query: string) => void;
+    searchQuery?: string;
+    setSearchQuery?: (query: string) => void;
     points: POIsOnMapDTO[];
     onUpdate: () => void
     onEditPoint: (point: POIsDTO) => void;
